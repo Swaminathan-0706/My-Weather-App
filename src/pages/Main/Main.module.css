@@ -1,0 +1,35 @@
+.Navbar {
+    background: linear-gradient(45deg, #5098c7, transparent);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3%;
+}
+
+.Title {
+    font-size: 18px;
+}
+
+.NavItemContainer {
+    display: flex;
+}
+
+.NavItemContainer a {
+    text-decoration: none;
+}
+
+.NavItem {
+    display: flex;
+    /* color: #000; */
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.Active {
+    color: #fff;
+    background-color: #b3ddf7;
+}

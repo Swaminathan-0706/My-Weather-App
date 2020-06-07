@@ -1,0 +1,15 @@
+.Home{
+    width:100%;
+    text-align: center;
+}
+
+
+.CitySelector {
+    height: 40px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.SelectContainer {
+    margin-top: 20px;
+}

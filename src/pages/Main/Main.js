@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import './Main.css';
+import styles from './Main.module.css';
 import Axios from 'axios';
-import City from '../../Components/City/City';
+import Home from '../Home/Home';
+import { Switch, Route, NavLink } from 'react-router-dom';
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -23,11 +24,10 @@ class Main extends Component {
         }
     }
     citySelectionHandler=(e)=>{
-        
         let currentCity=e.target.value;
-        console.log(currentCity);
         Axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${currentCity},IN&APPID=44137690601619565ed926ba4c0103db`)
         .then(response=>{
+            console.log(response);
             this.setState({
                 selectedCity:currentCity,
                 selectedCityData: response.data
@@ -39,23 +39,23 @@ class Main extends Component {
     }
     
     render() {
-        let options=this.state.cities.map(city=>{
-            return <option value={city}key={city}>{city}</option>
-        })
+        
         return (
             <>
-             <div className='Navbar'>My Weather Application</div>  
-             <div>
-                <label htmlFor='cities'>Select a city:  </label> 
-                <select id='cities' ref={this.cityOptions} onChange={(e)=>this.citySelectionHandler(e)} >
-                    <option>Nothing is selected</option> 
-                    {options}
-                    </select>
-            </div> 
-            {
-                this.state.selectedCity!==null?
-                <City data={this.state.selectedCityData}/>:null
-            }
+             <div className={styles.Navbar}>
+                    <p className={styles.Title}>My Weather Application</p>
+                    <div className={styles.NavItemContainer}>
+                        <NavLink exact to="/" activeClassName={styles.Active}>
+                            <div className={styles.NavItem}>Home</div>
+                        </NavLink>
+                        <NavLink to="/mycities" activeClassName={styles.Active}>
+                            <div className={styles.NavItem}>My Cities</div>
+                        </NavLink>
+                    </div>
+                </div>
+             <Switch>
+             <Route path="/" component={()=><Home cities={this.state.cities} selectedCity={this.state.selectedCity} selectedCityData={this.state.selectedCityData} citySelection={this.citySelectionHandler} />} />
+             </Switch>
             </>
         )
     }
