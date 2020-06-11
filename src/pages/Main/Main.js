@@ -17,10 +17,11 @@ class Main extends Component {
         }
     }
     componentDidMount(){
-        Axios.get('https://my-weather-app-f384d.firebaseio.com/Cities.json')
+        Axios.get('https://my-weather-app-f384d.firebaseio.com/.json')
         .then((response)=>{
             this.setState({
-                cities:response.data
+                cities: response.data.Cities,
+                    savedCities: response.data.Mycities
             })
 
         });
