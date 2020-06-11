@@ -1,0 +1,41 @@
+.MyCities {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.TitleContainer {
+    margin-bottom: 10px;
+}
+
+.Title {
+    font-size: 20px;
+}
+
+.WeatherCardContainer {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.RemoveButton {
+    cursor: pointer;
+    outline: none;
+    height: 40px;
+    border-radius: 5px;
+    color: #000;
+}
+
+.WeatherCard {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}

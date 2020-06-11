@@ -23,6 +23,7 @@
     display: flex;
     justify-content: center;
     margin-top: 5%;
+    margin-bottom: 20px;
 }
 
 .Temperature {
@@ -54,6 +55,14 @@
 .Active {
     background-color: #38a3ff;
     color: #fff;
+}
+
+.AddButton {
+    height: 40px;
+    width: 300px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
 }
 
 .Dark {

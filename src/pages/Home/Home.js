@@ -18,8 +18,9 @@ class Home extends Component {
                 </div>
             {
                 this.props.selectedCity !==null?
-                <City data={this.props.selectedCityData} selectedCity={this.props.selectedCity}/>:null
+                <City data={this.props.selectedCityData} selectedCity={this.props.selectedCity} addCity={(city) =>  this.props.addCity(city)}/>:null
             }
+            
             </div>
         )
     }

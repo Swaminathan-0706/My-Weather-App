@@ -55,8 +55,9 @@ const City = (props) => {
                         {tempCategories}
                     </div>
                 </div>
+                
             </div>
-            
+            <button className={styles.AddButton} onClick={() => props.addCity(props.selectedCity)}>Add {props.data.name} to My cities</button>
         </>
     )
 }

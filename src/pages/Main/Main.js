@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './Main.module.css';
 import Axios from 'axios';
 import Home from '../Home/Home';
+import MyCities from './../Mycities/Mycities';
 import { Switch, Route, NavLink } from 'react-router-dom';
 class Main extends Component {
     constructor(props) {
@@ -9,19 +10,20 @@ class Main extends Component {
         this.cityOptions = React.createRef();
     
         this.state = {
-            cities: [
-                'Mumbai',
-                'Delhi',
-                'Chennai',
-                'Kolkata',
-                'Bangalore',
-                'Pune',
-                'Hyderabad',
-                'Puducherry'
-            ],
+            cities: [],
             selectedCity:null,
-            selectedCityData:{}
+            selectedCityData:{},
+            savedCities: []
         }
+    }
+    componentDidMount(){
+        Axios.get('https://my-weather-app-f384d.firebaseio.com/Cities.json')
+        .then((response)=>{
+            this.setState({
+                cities:response.data
+            })
+
+        });
     }
     citySelectionHandler=(e)=>{
         let currentCity=e.target.value;
@@ -36,6 +38,32 @@ class Main extends Component {
 
         })
         .catch(error=>console.log(error));
+    }
+    addCityHandler=(city)=>{
+        console.log("clicked add handler");
+        let savedCities = [...this.state.savedCities];
+        savedCities.push(city);
+        console.log(savedCities);
+        Axios.put('https://my-weather-app-f384d.firebaseio.com/Mycities.json',savedCities)
+        .then(response=>{
+            this.setState({
+                savedCities:savedCities
+            })
+        })
+        .catch(error=>console.log(error))
+    }
+    removeCityHandler = (removed_city) => {
+        let savedCities = [...this.state.savedCities];
+        savedCities = savedCities.filter(city => {
+            return city.split(',')[0] !== removed_city;
+        })
+        Axios.put('https://my-weather-app-f384d.firebaseio.com/Mycities.json', savedCities)
+            .then(response => {
+                this.setState({
+                    savedCities: savedCities
+                })
+            })
+            .catch(error => {console.log(error);})
     }
     
     render() {
@@ -54,7 +82,8 @@ class Main extends Component {
                     </div>
                 </div>
              <Switch>
-             <Route path="/" component={()=><Home cities={this.state.cities} selectedCity={this.state.selectedCity} selectedCityData={this.state.selectedCityData} citySelection={this.citySelectionHandler} />} />
+             <Route path="/mycities" component={() => <MyCities savedCities={this.state.savedCities} removeCity={this.removeCityHandler} /> } />
+             <Route path="/" component={()=><Home cities={this.state.cities} selectedCity={this.state.selectedCity} addCity={this.addCityHandler} selectedCityData={this.state.selectedCityData} citySelection={this.citySelectionHandler} />} />
              </Switch>
             </>
         )
